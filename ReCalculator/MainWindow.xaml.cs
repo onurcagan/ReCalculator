@@ -103,27 +103,27 @@ namespace ReCalculator
 
             if (op == "×")
             {
-                result = cal.multiply(value1, value2);
+                result = ReCalculator.Calculate.Multiply(value1, value2);
                 calculationTextBox.Text = result.ToString();
             }
             if (op == "÷")
             {
-                result = cal.divide(value1, value2);
+                result = ReCalculator.Calculate.Divide(value1, value2);
                 calculationTextBox.Text = result.ToString();
             }
             if (op == "-")
             {
-                result = cal.subtract(value1, value2);
+                result = ReCalculator.Calculate.Subtract(value1, value2);
                 calculationTextBox.Text = result.ToString();
             }
             if (op == "+")
             {
-                result = cal.add(value1, value2);
+                result = ReCalculator.Calculate.Add(value1, value2);
                 calculationTextBox.Text = result.ToString();
             }
             if (op == "%")
             {
-                result = cal.percentage(value1);
+                result = ReCalculator.Calculate.Percentage(value1);
                 calculationTextBox.Text = result.ToString();
             }
 
