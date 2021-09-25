@@ -1,0 +1,251 @@
+﻿<Window x:Class="ReCalculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReCalculator"
+        mc:Ignorable="d"
+        SizeToContent="Height"
+        Title="ReCalculator" 
+        Height="600" 
+        Width="250"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        UseLayoutRounding="True"
+        Icon="/Images/icon.ico">
+
+
+    <!--region Universal Button Styling-->
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource ForegroundWhiteBrush}" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <!--Double Border for the dual dropshadow effect one going top left and the other going bottom right-->
+                            <Border Background="{StaticResource BackgroundBrush}"
+                                    CornerRadius="4">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="6"
+                                                      ShadowDepth="5"
+                                                      Color="LightGray"
+                                                      Opacity="0.075"
+                                                      Direction="135"/>
+                                </Border.Effect>
+                            </Border>
+                            <Border Background="{StaticResource BackgroundBrush}"
+                                    CornerRadius="4"
+                                    x:Name="border">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="8"
+                                                      ShadowDepth="5"
+                                                      Color="Black"
+                                                      Opacity="0.5"/>
+                                </Border.Effect>
+                            </Border>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="PreviewMouseLeftButtonDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="Black" 
+                                                        Duration="0:0:0.15"
+                                                        Storyboard.TargetProperty="Background.Color"
+                                                        Storyboard.TargetName="border"
+                                                        FillBehavior="Stop"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </Window.Resources>
+    <!--#endregion-->
+
+    <!--#region Main Border-->
+    <Border Padding="10">
+        <Border  x:Name="Container" Background="{StaticResource BackgroundBrush}" CornerRadius="18" ClipToBounds="True">
+            <!--Main Grid-->
+            <Grid>
+                <!--#region Grid Row and Column Definitions-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="120"/>
+                    <RowDefinition Height ="*" />
+                    <RowDefinition Height ="*" MinHeight="260"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <!--#endregion-->
+                
+                <!--#region Title-->
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="4" Grid.Row="0" Margin="10,20,0,0" Orientation="Horizontal">
+                    <Image  Source="/ReCalculator;component/Images/menuButtonWhite.png" Height="18" Width="18" Margin="10,0,0,0"/>
+                    <TextBlock FontSize="13" FontWeight="Regular" Margin="10,0,0,0" Foreground="{StaticResource ForegroundWhiteBrush}">Standard</TextBlock>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="4" Grid.Row="0"  Height="20" Width="20" Margin="10,20">
+                    <Image Source="/Images/profilePhoto.png"
+                                   RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                   RenderOptions.EdgeMode="Aliased"/>
+                </StackPanel>
+                <!--#endregion-->
+
+                <!--#region Calculation Screen Dropshadow-->
+
+                <!--First Border is to get rid of Top DropShadow bleed.-->
+                <Border Grid.ColumnSpan="4">
+
+                </Border>
+
+                <Border Grid.Row="1"
+                            Grid.ColumnSpan="4"
+                            Background="{StaticResource BackgroundBrush}"
+                            CornerRadius="0 0 8 0">
+
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" 
+                                              Direction="270"
+                                              ShadowDepth="3.5" 
+                                              Opacity="0.4" 
+                                              BlurRadius="5"/>
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="80"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBox Background="{StaticResource BackgroundBrush}" 
+                                     x:Name="preCalculationTextBox" 
+                                     VerticalAlignment="Top"
+                                     HorizontalAlignment="Right"
+                                     Margin="0,25,15,0"
+                                     Foreground="#8a68bd"
+                                     TextWrapping="Wrap" 
+                                     BorderBrush="{x:Null}"
+                                     FontSize="12"
+                                     FontWeight="Medium">
+                        </TextBox>
+
+                        <TextBox Grid.Row="1"
+                                     Background="{StaticResource BackgroundBrush}" 
+                                     x:Name="calculationTextBox" 
+                                     VerticalAlignment="Top"
+                                     HorizontalAlignment="Right"
+                                     Margin="0,0,15,0"
+                                     Foreground="White"
+                                     TextWrapping="Wrap" 
+                                     BorderBrush="{x:Null}"
+                                     FontSize="26"
+                                     FontWeight="Medium">
+                        </TextBox>
+                    </Grid>
+
+                </Border>
+
+                <!--#endregion-->
+
+                <!--#region Buttons-->
+
+                <!--M Buttons-->
+
+                <StackPanel Grid.Row="2" 
+                                    Orientation="Horizontal"
+                                    Grid.ColumnSpan="4"
+                                    Margin="10,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top">
+                    <TextBlock Margin="10" FontSize="10" Foreground="{StaticResource ForegroundGrayBrush}">MC</TextBlock>
+                    <TextBlock Margin="10" FontSize="10" Foreground="{StaticResource ForegroundGrayBrush}">MR</TextBlock>
+                    <TextBlock Margin="10" FontSize="10" Foreground="White">M+</TextBlock>
+                    <TextBlock Margin="10" FontSize="10" Foreground="White">M-</TextBlock>
+                    <TextBlock Margin="10" FontSize="10" Foreground="White">MS</TextBlock>
+                    <TextBlock Margin="10" FontSize="10" Foreground="{StaticResource ForegroundGrayBrush}">M</TextBlock>
+                </StackPanel>
+
+                <Grid Grid.Row="3" Grid.ColumnSpan="4" Panel.ZIndex="1" Margin="5,0,5,5">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="52"/>
+                        <RowDefinition Height="52"/>
+                        <RowDefinition Height="52"/>
+                        <RowDefinition Height="52"/>
+                        <RowDefinition Height="52"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <!--Buttons-->
+
+                    <Button Margin="8" Content="%" Foreground="{StaticResource ForegroundGrayBrush}" Click="Button_Click" />
+                    <Button Grid.Row="1" Margin="8" Content="7" Click="Button_Click"/>
+                    <Button Grid.Row="2" Margin="8" Content="4" Click="Button_Click"/>
+                    <Button Grid.Row="3" Margin="8" Content="1" Click="Button_Click"/>
+                    <Button Grid.Row="4" Margin="8" Content=""  Click="Button_Click"/>
+
+                    <Button Grid.Column="1" Margin="8" Content="CE" Foreground="{StaticResource ForegroundGrayBrush}" Click="Erase_Click"/>
+                    <Button Grid.Column="1" Grid.Row="1" Margin="8" Content="8" Click="Button_Click"/>
+                    <Button Grid.Column="1" Grid.Row="2" Margin="8" Content="5" Click="Button_Click"/>
+                    <Button Grid.Column="1" Grid.Row="3" Margin="8" Content="2" Click="Button_Click" />
+                    <Button Grid.Column="1" Grid.Row="4" Style="{StaticResource NormalButton}" FontSize="15" FontWeight="Bold" Margin="8" Content="0" Click="Button_Click"/>
+
+                    <Button Grid.Column="2" Margin="8" Content="AC" Foreground="{StaticResource ForegroundGrayBrush}" Click="Erase_Click"/>
+                    <Button Grid.Column="2" Grid.Row="1" Margin="8" Content="9" Click="Button_Click"/>
+                    <Button Grid.Column="2" Grid.Row="2" Margin="8" Content="6" Click="Button_Click"/>
+                    <Button Grid.Column="2" Grid.Row="3" Margin="8" Content="3" Click="Button_Click"/>
+                    <Button Grid.Column="2" Grid.Row="4" Margin="8" Content ="." FontWeight="Bold" Click="Comma_Click" />
+
+
+                    <Button Grid.Column="3" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="Button_Click">
+                        <TextBlock  Text="÷" FontSize="22" Foreground="{StaticResource ForegroundGrayBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-6,0,0" />
+                    </Button>
+                    <Button Grid.Column="3" Grid.Row="1" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="Button_Click">
+                        <TextBlock  Text="×" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-4,0,0" />
+                    </Button>
+                    <Button Grid.Column="3" Grid.Row="2" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="Button_Click">
+                        <TextBlock Text="-" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-9,0,0" />
+                    </Button>
+                    <Button Grid.Column="3"  Grid.Row="3" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Click="Button_Click">
+                        <TextBlock Text="+" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-6,0,0" />
+                    </Button>
+                    <Button Grid.Column="3" Grid.Row="4" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Style="{StaticResource ContrastButton}" Click="Result_Click">
+                        <TextBlock Text="=" FontSize="25" FontWeight="Medium" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-4,0,0" />
+                    </Button>
+
+                    <!--#endregion -->
+
+                </Grid>
+            </Grid>
+        </Border>
+    </Border>
+    <!--#endregion-->
+
+
+    <!--#region Window Chrome Stuff-->
+    <WindowChrome.WindowChrome>
+        <WindowChrome />
+    </WindowChrome.WindowChrome>
+    <!--#endregion-->
+
+</Window>
