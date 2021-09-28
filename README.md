@@ -1,5 +1,5 @@
 # ReCalculator
-A Calculator App I created with WPF using C#.
+A Calculator App I created with WPF & C#.
 
 Here's a screenshot of the app.
 
